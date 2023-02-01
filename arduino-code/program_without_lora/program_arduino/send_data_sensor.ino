@@ -29,20 +29,3 @@ void pinmode_data() {
     jsonBuffer.clear();
   }
 }
-
-// buat fungsi program untuk sensor ultrasonic
-long sensorUltrasonic() {
-  // proses pemancaran suara ultrasonic
-  digitalWrite(pinTrig, LOW);
-  delayMicroseconds(80);
-  digitalWrite(pinTrig, LOW);
-  digitalWrite(pinTrig, HIGH);
-  delayMicroseconds(80);
-  delayMicroseconds(80);
-
-  // proses penerimaan suara ultrasonic
-  long durasi = pulseIn(pinEcho, HIGH);
-  long jarak = (durasi / 2) / 2.91; // mengubah durasi menjadi panjang jarak (cm)
-
-  return jarak;
-}
