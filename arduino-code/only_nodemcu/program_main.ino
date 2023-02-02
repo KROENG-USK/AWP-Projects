@@ -1,3 +1,7 @@
+// buat variabel hidup atau mati
+#define HIDUP LOW
+#define MATI HIGH
+
 // buat variable millis waktu sebelum diproses program
 unsigned long lastTime_1 = 0;
 unsigned long lastTime_2 = 0;
@@ -29,28 +33,33 @@ void program_relay(int data, int pin_relay_1, int pin_relay_2, int pending) {
   if ((unsigned long) (currentTime - lastTime_2) >= pending) {
     lastTime_2 = currentTime;
     // ambil data boolean di database
+    int hum_limit;
     bool boolean_relay_1, boolean_relay_2, boolean_relay_auto;
     Firebase.getBool(firebaseData, path_relay_1, &boolean_relay_1);
     Firebase.getBool(firebaseData, path_relay_2, &boolean_relay_2);
     Firebase.getBool(firebaseData, path_auto_relay, &boolean_relay_auto);
+    Firebase.getInt(firebaseData, path_hum_limit, &hum_limit);
 
     if (boolean_relay_1 == true) {
-      digitalWrite(pin_relay_1, HIGH);
+      digitalWrite(pin_relay_1, HIDUP);
     } else {
-      digitalWrite(pin_relay_1, LOW);
+      digitalWrite(pin_relay_1, MATI);
     }
 
     if (boolean_relay_2 == true) {
-      digitalWrite(pin_relay_2, HIGH);
+      digitalWrite(pin_relay_2, HIDUP);
     } else {
-      digitalWrite(pin_relay_2, LOW);
+      digitalWrite(pin_relay_2, MATI);
     }
 
     if (boolean_relay_auto == true) {
-      if (data >=)
-    } else {
-      digitalWrite(pin_relay_1, LOW);
-      digitalWrite(pin_relay_2, LOW);
+      if (data >= hum_limit) {
+        digitalWrite(pin_relay_1, MATI);
+        // digitalWrite(pin_relay_2, MATI);
+      } else {
+        digitalWrite(pin_relay_1, HIDUP);
+        // digitalWrite(pin_relay_2, HIDUP);        
+      }
     }
   }
 }

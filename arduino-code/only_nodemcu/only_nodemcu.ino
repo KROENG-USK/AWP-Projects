@@ -45,6 +45,6 @@ void loop() {
   // kirim data ke firebase
   push_data(map(analogRead(pinSensor), 0, 1023, 100, 0), 500);
 
-  program_relay(pinRelay_1, pinRelay_2, 1000);
+  program_relay(map(analogRead(pinSensor), 0, 1023, 100, 0), pinRelay_1, pinRelay_2, 1000);
 
 }
