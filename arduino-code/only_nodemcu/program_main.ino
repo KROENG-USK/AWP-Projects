@@ -23,7 +23,7 @@ void push_data(int data_1, int pending) {
 }
 
 // buat fungsi program relay
-void program_relay(int pin_relay_1, int pin_relay_2, int pending) {
+void program_relay(int data, int pin_relay_1, int pin_relay_2, int pending) {
   unsigned long currentTime = millis();
 
   if ((unsigned long) (currentTime - lastTime_2) >= pending) {
@@ -47,8 +47,7 @@ void program_relay(int pin_relay_1, int pin_relay_2, int pending) {
     }
 
     if (boolean_relay_auto == true) {
-      digitalWrite(pin_relay_1, HIGH);
-      digitalWrite(pin_relay_2, HIGH);
+      if (data >=)
     } else {
       digitalWrite(pin_relay_1, LOW);
       digitalWrite(pin_relay_2, LOW);

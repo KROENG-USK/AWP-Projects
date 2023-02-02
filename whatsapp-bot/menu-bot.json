@@ -1,4 +1,10 @@
 {
+  "data-sensor-pompa-air": {
+    "hum-limit": 50,
+    "limit-tampungan": 60,
+    "sensor-mata-air": 0,
+    "sensor-tampungan": 1
+  },
   "message-database": {
     "1-help": {
       "q": "help"
