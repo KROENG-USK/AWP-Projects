@@ -1,0 +1,48 @@
+/*
+* Program menampilkan informasi database ke client melalui aplikasi whatsapp
+* 
+*/
+
+const db = require("../FirebaseDB");
+const ref = require("../FirebaseDB/path/reference.json");
+const { clock } = require("../model");
+
+exports.run = (client, msg) => {
+    var data_sensor_1;
+    var data_sensor_2;
+    var status_pump_1;
+    var status_pump_2;
+    var status_auto_pump;
+    let id = msg.from.id;
+
+    const sensor = require("../FirebaseDB/path/sensor.json");
+    db.ref(ref["ref-1"]).child(sensor["sensor-1"]).child("a").once("value", async (snapshot) => {
+        if (snapshot.val() !== null) {
+            data_sensor_1 = await snapshot.val();
+            db.ref(ref["ref-1"]).child(sensor["sensor-2"]).child("a").once("value", async (snapshot) => {
+                if (snapshot.val() !== null) {
+                    data_sensor_2 = await snapshot.val();
+                    db.ref(ref["ref-2"]).once("value", snapshot => {
+                        if (snapshot.val() !== null) {
+                            var bool_auto_pump = snapshot.val()["auto"];
+                            var bool_pump_1 = snapshot.val()["switch-1"];
+                            var bool_pump_2 = snapshot.val()["switch-2"];
+
+                            if (bool_auto_pump === true) status_auto_pump = "Hidup";
+                            else if (bool_auto_pump === false) status_auto_pump = "Mati";
+                            if (bool_pump_1 === true) status_pump_1 = "Hidup";
+                            else if (bool_pump_1 === false) status_pump_1 = "Mati";
+                            if (bool_pump_2 === true) status_pump_2 = "Hidup";
+                            else if (bool_pump_2 === false) status_pump_2 = "Mati";
+
+                            var information = `\t*Status AWP*\nTanggal : ${clock()}\n\nData Sensor\n> Kelembapan 1  : ${data_sensor_1}%\n> Kelembapan 2  : ${data_sensor_2}%\n\nStatus Pompa\n> Auto Pump  : ${status_auto_pump}\n> Pump 1        : ${status_pump_1}\n> Pump 2        : ${status_pump_2}`;
+
+                            client.sendMessage(id, information);
+
+                        } else;
+                    });
+                } else;
+            });
+        } else;
+    });
+}

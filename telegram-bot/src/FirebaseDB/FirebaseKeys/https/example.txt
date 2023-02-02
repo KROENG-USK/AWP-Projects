@@ -1,0 +1,6 @@
+silahkan buat sebuah file dengan nama : index.json
+dan isikan file tersebut dengan format sebagai berikut
+
+{
+    "https": "your-link-database"
+}
