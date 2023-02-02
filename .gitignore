@@ -5,4 +5,5 @@ whatsapp-bot/src/db/firebaseKey/serviceAccount.json
 telegram-bot/node_modules
 telegram-bot/src/FirebaseDB/FirebaseKeys/https/index.json
 telegram-bot/src/FirebaseDB/FirebaseKeys/to/serviceAccount.json
+telegram-bot/.env
 arduino-code/token-link.txt
